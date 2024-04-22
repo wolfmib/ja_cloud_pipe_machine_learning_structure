@@ -1,0 +1,76 @@
+
+## Option 1: Rebuild the Image on EC2
+This method involves copying your project files to the EC2 instance and then using Docker Compose to build and run the application there, just like you did on your local machine. This method ensures that the build environment is clean and potentially avoids any platform-specific issues.
+
+
+## copy project
+scp -r /path/to/project-directory ec2-user@your-ec2-ip:/path/to/destination
+
+
+## install
+sudo yum update -y
+sudo amazon-linux-extras install docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+
+
+## Build and run
+docker-compose up --build
+
+
+
+
+
+####################################################################
+####################################################################
+####################################################################
+####################################################################
+
+
+
+
+## Option2: Transfer the Docker Image
+
+## install docker in ec2
+
+sudo yum update -y
+sudo yum install docker -y
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+sudo systemctl enable docker
+
+
+## save from your devie
+docker save -o jamodelone_app.tar jamodelone_app
+
+
+## scp
+scp jamodelone_app.tar ec2-user@your-ec2-ip:/path/to/destination
+
+
+## docker run
+docker load -i jamodelone_app.tar
+
+
+## docker test hello-world
+docker run -it --rm -p 5000:5000 --name hello_app -v $(pwd)/temp_load:/app/temp_load ubuntu bash -c "ls /app/temp_load"
+
+
+## docker run la 
+docker run -p 5000:5000 --name my_ml_app -v $(pwd)/temp_load:/app/temp_load jamodelone_app
+
+
+
+
+
+
+
+
+
+
+
+
+

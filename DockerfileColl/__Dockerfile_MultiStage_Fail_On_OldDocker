@@ -1,0 +1,29 @@
+# Stage 1: Base image with Python and virtual environment setup
+FROM python:3.8.2 AS base
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Create and activate a virtual environment
+RUN python -m venv /venv
+ENV PATH="/venv/bin:$PATH"
+
+# Copy the requirements file into the container at /app
+COPY requirements.txt .
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --upgrade pip setuptools && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Stage 2: Final image with application code
+FROM base AS final
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Expose the port the app runs on
+EXPOSE 5000
+
+# Command to run the application
+CMD ["python", "my_app.py"]
+

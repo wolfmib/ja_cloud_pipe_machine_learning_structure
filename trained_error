@@ -1,0 +1,59 @@
+
+
+try 
+
+Automatic Tuning of Epochs
+There isn't a built-in TensorFlow module that automatically suggests the number of epochs to train for, but you can implement a few strategies that adjust the training process based on the model's performance to effectively determine when to stop training:
+
+Early Stopping: This is a form of regularization used to avoid overfitting when training a learner with an iterative method, such as gradient descent. By monitoring a performance metric on a held-out validation set during training, you can stop training when that performance metric stops improving.Here’s how you can implement early stopping in your training script using TensorFlow/Keras:
+
+
+
+
+#######
+from tensorflow.keras.callbacks import EarlyStopping
+
+# Initialize early stopping
+early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
+
+# Train the model
+history = model.fit(
+    train_generator,
+    steps_per_epoch=steps_per_epoch,
+    epochs=100,  # Set to a high value
+    validation_data=validation_generator,
+    validation_steps=validation_steps,
+    callbacks=[early_stopping]
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+try2
+Learning Rate Schedulers: Another approach is to use learning rate schedulers which adjust the learning rate during training based on some function or predefined schedule. This can help in converging faster or escaping local minima.
+ReduceLROnPlateau: Reduces learning rate when a metric has stopped improving, which is useful to get out of plateaus in training.
+
+
+##########
+from tensorflow.keras.callbacks import ReduceLROnPlateau
+
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=2, min_lr=0.001)
+
+history = model.fit(
+    train_generator,
+    steps_per_epoch=steps_per_epoch,
+    epochs=100,  # Set to a high value
+    validation_data=validation_generator,
+    validation_steps=validation_steps,
+    callbacks=[reduce_lr, early_stopping]
+)
+

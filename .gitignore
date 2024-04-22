@@ -1,0 +1,15 @@
+# Ignore .h5 and .tar files
+*.h5
+*.tar
+
+# Ignore image files in specific directories
+data_one/*
+
+# Ignore all files in the model_one train and validation directories
+model_one/train/*
+model_one/validation/*
+
+
+# Include specific folders and their contents
+!temp_load/
+
