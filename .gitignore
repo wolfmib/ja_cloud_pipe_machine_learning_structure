@@ -3,13 +3,18 @@
 *.tar
 
 # Ignore image files in specific directories
+<<<<<<< HEAD
 data_one/*
 
 # Ignore all files in the model_one train and validation directories
 model_one/train/*
 model_one/validation/*
 
+=======
+data_one/*
+model_one/*
 
 # Include specific folders and their contents
 !temp_load/
 
+temp_load/*.txt
