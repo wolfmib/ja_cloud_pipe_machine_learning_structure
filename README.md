@@ -25,3 +25,16 @@ kagglecatsanddogs_3367a
 Research used only
 
 - publish linked-article: https://www.linkedin.com/pulse/seamless-deployment-machine-learning-models-python-tensorflow-hung-ra19f
+
+
+
+
+---
+
+
+## Securing AWS Machine Learning Models: In-House Encryption and KMS-Managed Decryption
+
+- check folder : structure_In_house_model_in_EC2_with_KMS for refernced content 
+- published link: 
+   https://www.linkedin.com/posts/johnny-hung-data-analytic-gaming-actuary_dataenginnering-machinelearning-modeldeploy-activity-7190376112210788352-IeTm?utm_source=share&utm_medium=member_desktop
+
